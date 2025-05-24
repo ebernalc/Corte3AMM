@@ -1,0 +1,25 @@
+% Ejercicio 1
+s = tf('s');
+G1 = (s+2)/(s^2+4);
+
+% Ajuste del PID (valores obtenidos mediante prueba y error)
+Kp1 = 3000;
+Ki1 = 22;
+Kd1 = 5;
+C1 = pid(Kp1, Ki1, Kd1);
+
+% Sistema en lazo cerrado con PID
+sys1_pid = feedback(series(C1,G1),1);
+
+t = 0:0.1:3
+
+
+% Graficar ambas respuestas
+subplot(2,1,1);
+step(G1, t)
+title('Ejercicio 1 - Respuesta sin PID');
+
+subplot(2,1,2);
+step(sys1_pid, t);
+title('Ejercicio 1 - Respuesta con PID');
+grid on;
